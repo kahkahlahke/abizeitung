@@ -1,0 +1,7 @@
+/backend/node_modules
+/backend/dist
+/backend/yarn.lock
+/backend/yarn-error.lock
+/svelte-typescript-app/node_modules
+/svelte-typescript-app/yarn.lock
+/svelte-typescript-app/public/build
