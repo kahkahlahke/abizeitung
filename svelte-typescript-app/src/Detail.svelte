@@ -15,7 +15,7 @@
     }
 
     const getStudentData = async () => {
-        const rawResponse = await fetch("http://localhost:3232/get-students");
+        const rawResponse = await fetch("http://localhost:3232/api/get-students");
 		const data = await rawResponse.json()
 		return data;
     }
@@ -23,7 +23,7 @@
     const promise = getStudentData()
 
     const getComments = async () => {
-        const rawResponse = await fetch("http://localhost:3232/get-comments",{ 
+        const rawResponse = await fetch("http://localhost:3232/api/get-comments",{ 
       
       // Adding method type 
       method: "POST", 
@@ -43,7 +43,7 @@
     }
 
     const getLogin = async () => {
-        const rawResponse = await fetch("http://localhost:3232/me-query", {credentials: "include"});
+        const rawResponse = await fetch("http://localhost:3232/api/me-query", {credentials: "include"});
 		const data = await rawResponse.json()
 		return data;
     }
@@ -61,7 +61,7 @@
             body: formData,
             credentials: "include"
         }
-        fetch("http://localhost:3232/write-comment", options)
+        fetch("http://localhost:3232/api/write-comment", options)
     }
 
 
@@ -79,7 +79,7 @@
 </div>
 <div class="row">
     <div class="six columns">
-    <img width="400px" src={"http://localhost:3232/" + studentData[id-1].image} alt={studentData[id-1].name}>   
+    <img width="400px" src={"http://localhost:3232/images/" + studentData[id-1].image} alt={studentData[id-1].name}>   
 </div> 
     <div class="six columns">
     <strong>Kurs: </strong>

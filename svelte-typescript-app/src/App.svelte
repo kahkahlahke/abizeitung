@@ -33,5 +33,7 @@ import Login from "./Login.svelte";
    <style>
 	   nav{
 		   text-align: center;
+		   font-family: "Ubuntu";
 	   }
+
    </style>

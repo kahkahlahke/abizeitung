@@ -41,7 +41,7 @@ const main = async () => {
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({extended:true}))
     app.use(express.static("dist/public"));
-    app.use(["/upload", "/me-query", "/write-comment", "/login"], session({
+    app.use(["/api/upload", "/api/me-query", "/api/write-comment", "/api/login"], session({
         store: new RedisStore({client: redisClient, disableTouch: true}),
         name: "qid",
         secret: "fdkjszhflhdfua",
@@ -55,13 +55,13 @@ const main = async () => {
         }
     }))
 
-    app.get("/get-students", await getAllStudents(orm));
-    app.get("/me-query", getMe(orm))
-    app.post("/upload", postUpload(orm));
-    app.post("/get-one-student", getOneStudent(orm));
-    app.post("/write-comment", postComment(orm));
-    app.post("/login", postLogin(orm));
-    app.post("/get-comments", getComments(orm));
+    app.get("/api/get-students", await getAllStudents(orm));
+    app.get("/api/me-query", getMe(orm))
+    app.post("/api/upload", postUpload(orm));
+    app.post("/api/get-one-student", getOneStudent(orm));
+    app.post("/api/write-comment", postComment(orm));
+    app.post("/api/login", postLogin(orm));
+    app.post("/api/get-comments", getComments(orm));
     app.listen(3232, () => console.log("listnenjng @ 3434"));
 }
 main().catch(err => {

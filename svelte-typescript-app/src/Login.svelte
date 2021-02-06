@@ -10,7 +10,7 @@
             body: formData,
             credentials: "include"
         }
-        fetch("http://localhost:3232/login", options)
+        fetch("http://localhost:3232/api/login", options)
     }
 </script>
 <div class="container">

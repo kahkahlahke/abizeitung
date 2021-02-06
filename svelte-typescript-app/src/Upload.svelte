@@ -39,7 +39,7 @@ import FileUpload from "./fileUpload.svelte";
             body: formData,
             credentials: "include"
         }
-        fetch("http://localhost:3232/upload", options)
+        fetch("http://localhost:3232/api/upload", options)
     }
     //method="POST" action="http://localhost:3232/upload" 
 </script>

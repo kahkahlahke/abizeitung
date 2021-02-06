@@ -17,7 +17,7 @@
 </script>
     <tr>
         <td>
-            <img src={"http://localhost:3232/" + studentData.image} alt={studentData.name} width="300">
+            <img src={"http://localhost:3232/images/" + studentData.image} alt={studentData.name} width="300">
         </td>
         <td>
             

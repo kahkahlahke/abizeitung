@@ -16,7 +16,7 @@ export const postUpload = (orm: MikroORM) => {
         const imgFile: any = req.files.file;
         console.log(imgFile);
         const dirname = path.join(__dirname, "../")
-        imgFile.mv(`${dirname}/public/${imgFile.name}`, (err: any) => {
+        imgFile.mv(`${dirname}/public/images/${imgFile.name}`, (err: any) => {
             if(err){
                 console.log("Error OwO: ", err);
                 return res.status(500).send({msg: "Error OwO"});

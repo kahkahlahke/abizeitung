@@ -3,13 +3,13 @@
 	
 
 	const main = async () => {
-		const rawResponse = await fetch("http://localhost:3232/get-students");
+		const rawResponse = await fetch("http://localhost:3232/api/get-students");
 		const data = await rawResponse.json()
 		return data;
 	}
 
 	const getMe = async () => {
-		const rawResponse = await fetch("http://localhost:3232/me-query", {credentials: "include"});
+		const rawResponse = await fetch("http://localhost:3232/api/me-query", {credentials: "include"});
 		const data = await rawResponse.json()
 		return data;
 	}	
