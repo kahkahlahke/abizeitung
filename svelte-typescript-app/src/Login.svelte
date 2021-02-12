@@ -1,24 +1,36 @@
 <script lang="ts">
     let name;
+    let password;
 
-    function handleSubmit(){
+    async function handleSubmit(){
         const formData = new FormData()
         formData.append("name", name);
+        formData.append("password", password);
 
         const options = {
             method: 'POST',
             body: formData,
             credentials: "include"
         }
-        fetch("http://localhost:3232/api/login", options)
+        await fetch("/api/login", options)
+        window.location.href = "/"
     }
 </script>
 <div class="container">
     <h2>Login</h2>
 <form on:submit|preventDefault={handleSubmit} enctype="multipart/form-data">
-    <label for="name">Was ist dein Name?</label>
-    <input class="u-full-width" type="text" name="name" id="name" bind:value={name}>
+    <div class="row">
+        <div class="six columns">
+        <label for="name">Dein Name:</label>
+        <input class="u-full-width" type="text" name="name" id="name" bind:value={name}>
+    </div>
+    <div class="six columns">
+        <label for="password">Dein Passwort:</label>
+        <input class="u-full-width" type="password" name="password" id="password" bind:value={password}>
+        
+    </div>
     <input type="submit" value="Submit" class="button-primary">
+    </div>
 </form>
 </div>
 <style>

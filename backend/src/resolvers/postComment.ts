@@ -1,11 +1,10 @@
 import { MikroORM } from "@mikro-orm/core";
 import { NextFunction, Request, Response } from "express";
-import path from "path";
 import { Kommentar } from "../entities/Kommentar";
-import { Kurs, Schueler } from "../entities/Schueler";
+import { Schueler } from "../entities/Schueler";
     
 export const postComment = (orm: MikroORM) => {
-    return async (req: Request, res: Response, next: NextFunction) => {
+    return async (req: Request, res: Response, _: NextFunction) => {
         const em = orm.em.fork();
         
         console.log(req.session!.userId)

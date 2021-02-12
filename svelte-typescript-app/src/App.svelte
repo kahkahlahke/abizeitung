@@ -1,9 +1,11 @@
 <script>
 	import { Router, Route, Link } from "svelte-routing";
 import Detail from "./Detail.svelte";
+import EditPosts from "./EditPosts.svelte";
 	import Home from "./Home.svelte";
 import Login from "./Login.svelte";
 	import Upload from "./Upload.svelte";
+import UploadMessage from "./UploadMessage.svelte";
 	export let url = "";
   </script>
 
@@ -13,6 +15,7 @@ import Login from "./Login.svelte";
 <link rel="stylesheet" href="./Skeleton-2.0.4/css/skeleton.css">
   <Router url="{url}">
 	<nav>
+		<title>Abizeitung Pog</title>
 		<div class="container" width="200px">
 		<div class="row">
 	   <div class="one-third column"><Link to="/">Home</Link></div>
@@ -26,6 +29,8 @@ import Login from "./Login.svelte";
 	   <Route path="/"><Home /></Route>
 	   <Route path="/login" component="{Login}" /> 
 	   <Route path="/upload" component="{Upload}" /> 
+
+	   <Route path="/edit-posts" component="{EditPosts}" /> 
 	   <Route path="/student/:id" let:params><Detail id="{params.id}"></Detail></Route> 
 	 </div>
    </Router>

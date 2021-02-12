@@ -1,20 +1,14 @@
 <script lang="ts">
+	import { getAllStudents, getMe } from "./queries";
+
 	import Schueler from "./Schueler.svelte";
 	
 
-	const main = async () => {
-		const rawResponse = await fetch("http://localhost:3232/api/get-students");
-		const data = await rawResponse.json()
-		return data;
-	}
 
-	const getMe = async () => {
-		const rawResponse = await fetch("http://localhost:3232/api/me-query", {credentials: "include"});
-		const data = await rawResponse.json()
-		return data;
-	}	
+
+
 	const mePromise = getMe();
-	const promise = main();
+	const promise = getAllStudents();
 
 </script>
 
@@ -25,16 +19,19 @@
 		<p class="hello-p">{#await mePromise}
 			loading...
 		{:then data} 
-			Hallo {data.name}
+			<p>Hallo {data.name}</p>
+			{#if data.superuser}
+				<a href="/edit-posts">Edit Posts</a>
+			{/if}
 		{/await}</p>
 		{#await promise}
 			<p>waitin...</p>
 		{:then data} 
 		<table  class="u-full-width">
 			<tbody>
-			{#each data as dat}
+			{#each data as dat, i}
 
-					<Schueler studentData={dat} />
+					<Schueler studentData={dat} index={i+1} />
 
 			{/each}
 		</tbody>

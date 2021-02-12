@@ -6,7 +6,7 @@
     function upload() {
         const formData = new FormData();
         formData.append('dataFile', files[0]);
-        const upload = fetch('http://localhost:3232/file-upload', {
+        const upload = fetch('/file-upload', {
             method: 'POST',
             body: formData
         }).then((response) => response.json()).then((result) => {

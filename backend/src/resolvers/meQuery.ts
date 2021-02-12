@@ -9,7 +9,7 @@ export const getMe = (orm: MikroORM) => {
         const schueler = await em.findOne(Schueler, {_id: req.session.userId});
         let resp: null | Schueler;
         resp = schueler
-        console.log(schueler)
+        // console.log(schueler)
         res.send(resp);
         em.clear();
     }

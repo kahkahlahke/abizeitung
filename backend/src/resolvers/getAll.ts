@@ -2,7 +2,7 @@ import { MikroORM } from "@mikro-orm/core";
 import { NextFunction, Response, Request } from "express";
 import { Schueler } from "../entities/Schueler";
 
-export const getAllStudents = async (orm: MikroORM) => {
+export const getAllStudents = (orm: MikroORM) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const em = orm.em.fork();
         const schueler = await em.find(Schueler, {});
@@ -12,7 +12,7 @@ export const getAllStudents = async (orm: MikroORM) => {
         }else{
             resp = "that didn't work"
         }
-
+        // console.log(resp)
         res.send(resp);
         em.clear();
     }

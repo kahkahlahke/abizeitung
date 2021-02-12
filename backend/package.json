@@ -17,6 +17,7 @@
     "@mikro-orm/core": "^4.4.1",
     "@mikro-orm/migrations": "^4.4.1",
     "@mikro-orm/postgresql": "^4.4.1",
+    "argon2": "^0.27.1",
     "body-parser": "^1.19.0",
     "connect-redis": "^5.0.0",
     "cors": "^2.8.5",

@@ -1,4 +1,4 @@
-import { Entity, PrimaryKey, SerializedPrimaryKey, Property, ManyToOne, ManyToMany, Collection, OneToMany, Enum } from "@mikro-orm/core";
+import { Entity, PrimaryKey, SerializedPrimaryKey, Property, ManyToOne, ManyToMany, Collection, OneToMany, Enum, Cascade } from "@mikro-orm/core";
 import { Kommentar } from "./Kommentar";
 
 export enum Kurs{
@@ -18,8 +18,11 @@ export class Schueler {
   @PrimaryKey()
   _id: number;
 
-  @Property()
+  @Property({unique: true})
   name: string;
+
+  @Property()
+  password: string;
 
   @Enum()
   kurs: Kurs;
@@ -30,9 +33,12 @@ export class Schueler {
   @Property()
   image: string;
 
-  @OneToMany(() => Kommentar, comment => comment.author)
+  @Property({default: false})
+  superuser: boolean;
+
+  @OneToMany(() => Kommentar, comment => comment.author, {cascade: [Cascade.REMOVE]})
   writtenComments? = new Collection<Kommentar>(this);
 
-  @OneToMany(() => Kommentar, comment => comment.receiver)
+  @OneToMany(() => Kommentar, comment => comment.receiver, {cascade: [Cascade.REMOVE]})
   receivedComments? = new Collection<Kommentar>(this);
 }
