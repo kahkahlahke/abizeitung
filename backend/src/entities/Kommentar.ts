@@ -1,4 +1,4 @@
-import { Entity, PrimaryKey, SerializedPrimaryKey, Property, ManyToOne, ManyToMany, Collection } from "@mikro-orm/core";
+import { Entity, PrimaryKey, SerializedPrimaryKey, Property, ManyToOne, ManyToMany, Collection, Cascade } from "@mikro-orm/core";
 import { Schueler } from "./Schueler";
 
 @Entity()
@@ -11,9 +11,9 @@ export class Kommentar {
   @Property()
   content: string;
 
-  @ManyToOne(() => Schueler)
-  author: Schueler;
+  @ManyToOne(() => Schueler, {onDelete: "CASCADE"})
+  author?: Schueler;
 
-  @ManyToOne(() => Schueler)
-  receiver: Schueler;
+  @ManyToOne(() => Schueler, {onDelete: "CASCADE"})
+  receiver?: Schueler;
 }

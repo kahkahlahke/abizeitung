@@ -36,9 +36,9 @@ export class Schueler {
   @Property({default: false})
   superuser: boolean;
 
-  @OneToMany(() => Kommentar, comment => comment.author, {cascade: [Cascade.REMOVE]})
+  @OneToMany(() => Kommentar, comment => comment.author, {mappedBy: "author", cascade: [Cascade.REMOVE]})
   writtenComments? = new Collection<Kommentar>(this);
 
-  @OneToMany(() => Kommentar, comment => comment.receiver, {cascade: [Cascade.REMOVE]})
+  @OneToMany(() => Kommentar, comment => comment.receiver, {mappedBy: "receiver", cascade: [Cascade.REMOVE]})
   receivedComments? = new Collection<Kommentar>(this);
 }
