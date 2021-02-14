@@ -2,10 +2,11 @@
 import Kommentar from "./Kommentar.svelte";
 import { getAllStudents } from "./queries";
 
-    export let id;
-
+    export let index;
+    let id;
     let desc;
-
+    let studentData;
+    let commentData;
     enum Kurs {
         EN1 = 0,
         MA1,
@@ -17,11 +18,8 @@ import { getAllStudents } from "./queries";
         GE1
     }
 
-
-
-    const promise = getAllStudents();
-
     const getComments = async () => {
+        // alert(id)
         const rawResponse = await fetch("/api/get-comments",{ 
       
       // Adding method type 
@@ -41,13 +39,22 @@ import { getAllStudents } from "./queries";
 		return data;
     }
 
+    getAllStudents().then(data => {
+        id = data[index-1]._id
+        studentData = data
+        getComments().then(why => {
+            commentData = why;
+
+        })
+    })
+
     const getLogin = async () => {
         const rawResponse = await fetch("/api/me-query", {credentials: "include"});
 		const data = await rawResponse.json()
 		return data;
     }
 
-    const commentPromise = getComments();
+
 
     const loginPromise = getLogin();
 
@@ -69,23 +76,22 @@ import { getAllStudents } from "./queries";
 </script>
 
 <div class="container">
-    {#await promise}
+    {#if studentData === undefined}
         <p>waiting...</p>
         <p>{loginPromise}</p>
-    {:then studentData} 
-    <h2>{studentData[id-1].name}</h2>
+    {:else} 
+    <h2>{studentData[index-1].name}</h2>
     <div class="row">
     <strong>Über mich: </strong>
-    <p>{studentData[id-1].description}</p>
+    <p>{studentData[index-1].description}</p>
 </div>
 <div class="row">
     <div class="six columns">
-    <img width="400px" src={"/images/" + studentData[id-1].image} alt={studentData[id-1].name}>   
+    <img width="400px" src={"/images/" + studentData[index-1].image} alt={studentData[index-1].name}>   
 </div> 
     <div class="six columns">
     <strong>Kurs: </strong>
-    <p>{Kurs[studentData[id-1].kurs]}</p></div>
-     
+    <p>{Kurs[studentData[index-1].kurs]}</p></div>
 </div>
     {#await loginPromise}
         <p>waitin</p>
@@ -99,22 +105,22 @@ import { getAllStudents } from "./queries";
     </form>           
     {/if}
     {/await}
+    {#if id !== undefined}
+            {#if commentData === undefined}
+            <p>no comments here yet?</p>
+            {:else}
+            <table  class="u-full-width">
+                <tbody>
+                {#each commentData as dat, i}
+                    <Kommentar data={dat} studentData={studentData} index={i}/>
+                {/each}
+            </tbody>
 
-    {#await commentPromise}
-        <p>no comments here yet?</p>
-    {:then data} 
-    <table  class="u-full-width">
-        <tbody>
-        {#each data as dat}
-            <Kommentar data={dat} studentData={studentData} />
-        {/each}
-    </tbody>
-
-</table>
-    {/await}   
-    {:catch error}
-    <p style="color: red">{error}</p>
-    {/await}
+        </table>
+            {/if}
+ 
+    {/if}
+    {/if}
     
 
 </div>

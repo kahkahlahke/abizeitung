@@ -7,4 +7,4 @@ frontend foir cool web app :)
 -/ nur Bilddateien
 -/ redirect nach dem submit
 -/ superuser
-- schüler löschen die kommentare geschrieben haben
+-/ schüler löschen die kommentare geschrieben haben

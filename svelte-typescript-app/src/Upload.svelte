@@ -38,7 +38,7 @@ import { Kurs } from "./kurs";
         if(!files){
             return "Du musst ein Bild von dir hochladen."
         }
-        if (files[0].size > 1073741824){
+        if (files[0].size > 1048576){
             return "Deine Datei ist zu groß."
         }
         return null;

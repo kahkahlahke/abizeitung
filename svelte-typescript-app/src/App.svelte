@@ -31,7 +31,7 @@ import UploadMessage from "./UploadMessage.svelte";
 	   <Route path="/upload" component="{Upload}" /> 
 
 	   <Route path="/edit-posts" component="{EditPosts}" /> 
-	   <Route path="/student/:id" let:params><Detail id="{params.id}"></Detail></Route> 
+	   <Route path="/student/:id" let:params><Detail index="{params.id}"></Detail></Route> 
 	 </div>
    </Router>
 
