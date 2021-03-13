@@ -17,6 +17,13 @@ import { postLogin } from "./resolvers/postLogin";
 import path from "path"
 import { postMakeSuperuser } from "./resolvers/makeSuperuser";
 import { postDeleteUser } from "./resolvers/postDeleteUser";
+import { Kommentar } from "./entities/Kommentar";
+import { postMakeSurvey } from "./resolvers/postMakeSurvey";
+import { getSurveyData } from "./resolvers/getSurveyData";
+import { postVote } from "./resolvers/postVote";
+import { Umfrage } from "./entities/Umfrage";
+import { Option } from "./entities/Option";
+import { Schueler } from "./entities/Schueler";
 
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient();
@@ -31,6 +38,14 @@ declare module "express-session" {
 const main = async () => {
     const app = express()
     const orm = await MikroORM.init(mikroConfig); 
+
+
+    const BADCOMMENTS = await orm.em.find(Kommentar, {author: null});
+    await orm.em.removeAndFlush(BADCOMMENTS);
+    const WORSECOMMENTS = await orm.em.find(Kommentar, {receiver: null});
+    await orm.em.removeAndFlush(WORSECOMMENTS);
+    
+    
     await orm.getMigrator().up();
     app.use(cors({
         origin: "http://localhost:5000",
@@ -40,7 +55,17 @@ const main = async () => {
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({extended:true}))
     app.use( express.static("dist/public"));
-    app.use(["/api/upload", "/api/me-query", "/api/write-comment", "/api/login", "/api/make-superuser", "/api/delete-student"], session({
+    app.use([
+        "/api/upload",
+        "/api/me-query",
+        "/api/write-comment", 
+        "/api/login", 
+        "/api/make-superuser", 
+        "/api/delete-student", 
+        "/api/make-survey", 
+        "/api/get-surveys",
+        "/api/vote"
+    ], session({
         store: new RedisStore({client: redisClient, disableTouch: true}),
         name: "qid",
         secret: "fdkjszhflhdfua",
@@ -56,15 +81,22 @@ const main = async () => {
 
     // const what_the_fuck = await orm.em.find(Schueler, {});
     // console.log(what_the_fuck)
-    
+    console.log(await orm.em.find(Option, {}))
+
+    console.log(await orm.em.find(Schueler, {}))
+
     app.get("/api/get-students", getAllStudents(orm));
-    app.get("/api/me-query", getMe(orm))
+    app.get("/api/me-query", getMe(orm));
+    app.get("/api/get-surveys", getSurveyData(orm));
     app.post("/api/upload", postUpload(orm));
     app.post("/api/write-comment", postComment(orm));
     app.post("/api/login", postLogin(orm));
     app.post("/api/get-comments", getComments(orm));
     app.post("/api/make-superuser", postMakeSuperuser(orm));
     app.post("/api/delete-student", postDeleteUser(orm));
+    app.post("/api/make-survey", postMakeSurvey(orm));
+    app.post("/api/vote", postVote(orm));
+
     app.get("*", (_, res) => {
         res.sendFile("index.html", {root: path.join(__dirname, "./public")})
     })

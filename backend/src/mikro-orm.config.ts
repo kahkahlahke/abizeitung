@@ -3,9 +3,11 @@ import path from "path";
 import { MikroORM } from "@mikro-orm/core";
 import { Schueler } from "./entities/Schueler";
 import { Kommentar } from "./entities/Kommentar";
+import { Option } from "./entities/Option";
+import { Umfrage } from "./entities/Umfrage";
 
 export default {
-    entities: [Schueler, Kommentar], // path to your JS entities (dist), relative to `baseDir`
+    entities: [Schueler, Kommentar, Option, Umfrage], // path to your JS entities (dist), relative to `baseDir`
     dbName: 'abizeitung',
     type: 'postgresql',
     user: "postgres",

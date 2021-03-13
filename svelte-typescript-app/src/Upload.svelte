@@ -134,7 +134,7 @@ import { Kurs } from "./kurs";
     }
     .container{
     font-family: "Ubuntu";
-}
+} 
     .error-message{
         color: red;
     }

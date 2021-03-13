@@ -8,3 +8,10 @@ frontend foir cool web app :)
 -/ redirect nach dem submit
 -/ superuser
 -/ schüler löschen die kommentare geschrieben haben
+
+
+- make new entity survey
+    - save collection of voters
+- make new entity survey-option
+    - save votes for option
+- make frontend survey

@@ -1,5 +1,6 @@
 import { Entity, PrimaryKey, SerializedPrimaryKey, Property, ManyToOne, ManyToMany, Collection, OneToMany, Enum, Cascade } from "@mikro-orm/core";
 import { Kommentar } from "./Kommentar";
+import { Option } from "./Option";
 
 export enum Kurs{
     EN1 = 0,
@@ -41,4 +42,7 @@ export class Schueler {
 
   @OneToMany(() => Kommentar, comment => comment.receiver, {mappedBy: "receiver", cascade: [Cascade.REMOVE]})
   receivedComments? = new Collection<Kommentar>(this);
+
+  @ManyToMany(() => Option, option => option.voters, {owner: true})
+  options? = new Collection<Option>(this);
 }
