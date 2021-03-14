@@ -2,7 +2,7 @@
 import { Kurs } from "./kurs";
 import { getMe } from "./queries";
 
-    let meId: number | null;
+    let meId: number | undefined;
     let meData;
     let kurse = [];
 
@@ -20,17 +20,18 @@ import { getMe } from "./queries";
     }
 
     getMe().then(data => {
-        if(data !== null){
+        if(data !== undefined){
             meId = data._id
             meData = data;
             name = data.name;
             desc = data.description;
             kurs = Kurs[data.kurs];
+            console.log(meId)
             return
         }
-        meId = null;
+        meId = undefined;
     })
-
+    console.log(meId)
     function validateForm(update = false): string {
         if(!password){
             return "Du brauchst ein Passwort."
@@ -117,10 +118,11 @@ import { getMe } from "./queries";
     //method="POST" action="http://localhost:3232/upload" 
 </script>
 <div class="container">
+{#if meId === undefined}
 <h2>Registrierung</h2>
 
-<form on:submit|preventDefault={handleSubmitUpdate} enctype="multipart/form-data">
-    {#if meId === null}
+<form on:submit|preventDefault={handleSubmit} enctype="multipart/form-data">
+
     <div class="row">
         <div class="six columns">
         <label for="name">Was ist dein Name?</label>
@@ -157,50 +159,55 @@ import { getMe } from "./queries";
             
     </div>        
     <input type="submit" value="Submit" class="button-primary">      
-    {:else}
-    <div class="row">
-        <div class="six columns">
-        <label for="name">Was ist dein Name?</label>
-        <input class="u-full-width" type="text" name="name" id="name" bind:value={name}>
-        </div>
-        <div class="six columns">
-            <label for="kurs">Dein Tutorenkurs:</label>
-            <select class="u-full-width" id="kurs" name="kurs" bind:value={kurs}>
-            {#each kurse as kurs}
-                <option>{kurs}</option>
-            {/each}
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <label for="bild">Ein Bild von dir:</label>
-        <!-- <FileUpload></FileUpload> -->
-        <input type="file" accept=".png,.jpg,.jpeg" name="bild" id="bild" bind:files class="u-full-width">
 
-    </div>
-    <div class="row">
-        <label for="desc">Erzähl was über dich:</label>
-        <textarea class="u-full-width" name="desc" id="desc" bind:value={desc} />
-    </div>
-    <div class="row">
-        <div class="six columns">
-            <label for="password">Dein Passwort:</label>
-            <input class="u-full-width" type="password" name="password" id="password" bind:value={password}>
-        </div>
-        <div class="six columns">
-            <label for="passwordConfirm">Dein Passwort bestätigen:</label>
-            <input class="u-full-width" type="password" name="passwordConfirm" id="passwordConfirm" bind:value={passwordConfirm}>
-        </div>
-            
-    </div>        
-    <input type="submit" value="Submit" class="button-primary">
-    {/if}
+   
 
     
     <!-- <a onclick={handleSubmit} class="button">Submit</a> -->
 
 
 </form>
+{:else}
+<h2>Update</h2>
+<form on:submit|preventDefault={handleSubmitUpdate} enctype="multipart/form-data">
+<div class="row">
+    <div class="six columns">
+    <label for="name">Was ist dein Name?</label>
+    <input class="u-full-width" type="text" name="name" id="name" bind:value={name}>
+    </div>
+    <div class="six columns">
+        <label for="kurs">Dein Tutorenkurs:</label>
+        <select class="u-full-width" id="kurs" name="kurs" bind:value={kurs}>
+        {#each kurse as kurs}
+            <option>{kurs}</option>
+        {/each}
+        </select>
+    </div>
+</div>
+<div class="row">
+    <label for="bild">Ein Bild von dir:</label>
+    <!-- <FileUpload></FileUpload> -->
+    <input type="file" accept=".png,.jpg,.jpeg" name="bild" id="bild" bind:files class="u-full-width">
+
+</div>
+<div class="row">
+    <label for="desc">Erzähl was über dich:</label>
+    <textarea class="u-full-width" name="desc" id="desc" bind:value={desc} />
+</div>
+<div class="row">
+    <div class="six columns">
+        <label for="password">Dein Passwort:</label>
+        <input class="u-full-width" type="password" name="password" id="password" bind:value={password}>
+    </div>
+    <div class="six columns">
+        <label for="passwordConfirm">Dein Passwort bestätigen:</label>
+        <input class="u-full-width" type="password" name="passwordConfirm" id="passwordConfirm" bind:value={passwordConfirm}>
+    </div>
+        
+</div>        
+<input type="submit" value="Submit" class="button-primary">
+</form>
+{/if}
 {#if errorMessage}
     
 <p class="error-message">! {errorMessage}</p>
