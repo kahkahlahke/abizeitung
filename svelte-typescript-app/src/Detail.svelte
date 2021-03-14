@@ -68,7 +68,10 @@ import { getAllStudents } from "./queries";
             credentials: "include"
         }
         await fetch("/api/write-comment", options)
-        window.location.href = "/"
+        desc = "";
+        getComments().then(why => {
+            commentData = why;
+        })
     }
 
 

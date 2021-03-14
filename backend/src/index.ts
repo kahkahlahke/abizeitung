@@ -24,6 +24,7 @@ import { postVote } from "./resolvers/postVote";
 import { Umfrage } from "./entities/Umfrage";
 import { Option } from "./entities/Option";
 import { Schueler } from "./entities/Schueler";
+import { postUpdateStudent } from "./resolvers/postUpdateStudent";
 
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient();
@@ -64,7 +65,8 @@ const main = async () => {
         "/api/delete-student", 
         "/api/make-survey", 
         "/api/get-surveys",
-        "/api/vote"
+        "/api/vote",
+        "/api/updateStudent"
     ], session({
         store: new RedisStore({client: redisClient, disableTouch: true}),
         name: "qid",
@@ -81,9 +83,9 @@ const main = async () => {
 
     // const what_the_fuck = await orm.em.find(Schueler, {});
     // console.log(what_the_fuck)
-    console.log(await orm.em.find(Option, {}))
+    // console.log(await orm.em.find(Option, {}))
 
-    console.log(await orm.em.find(Schueler, {}))
+    // console.log(await orm.em.find(Schueler, {}))
 
     app.get("/api/get-students", getAllStudents(orm));
     app.get("/api/me-query", getMe(orm));
@@ -96,6 +98,7 @@ const main = async () => {
     app.post("/api/delete-student", postDeleteUser(orm));
     app.post("/api/make-survey", postMakeSurvey(orm));
     app.post("/api/vote", postVote(orm));
+    app.post("/api/updateStudent", postUpdateStudent(orm));
 
     app.get("*", (_, res) => {
         res.sendFile("index.html", {root: path.join(__dirname, "./public")})
