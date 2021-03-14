@@ -217,14 +217,12 @@ import { getMe } from "./queries";
 
 <style>
     h2{
-        font-family: "Ubuntu";
         text-align: center;
 		color: #ff3e00;
 		text-transform: uppercase;
 		font-weight: 50;
     }
     .container{
-    font-family: "Ubuntu";
 } 
     .error-message{
         color: red;

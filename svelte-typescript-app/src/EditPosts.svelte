@@ -37,6 +37,5 @@ import { getAllStudents, getMe } from "./queries";
     
 		text-align: left;
 		font-size: small;
-		font-family: "Ubuntu";
 	}
 </style>

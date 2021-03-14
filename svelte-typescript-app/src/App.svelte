@@ -15,6 +15,7 @@ import UploadMessage from "./UploadMessage.svelte";
 
 <link rel="stylesheet" href="./Skeleton-2.0.4/css/normalize.css">
 <link rel="stylesheet" href="./Skeleton-2.0.4/css/skeleton.css">
+<link rel="stylesheet" href="./yeyhaw.css">
   <Router url="{url}">
 	<nav>
 		<title>Abizeitung Pog</title>
@@ -28,7 +29,7 @@ import UploadMessage from "./UploadMessage.svelte";
 	</div>
 	 </nav>
 	 
-	 <div>
+	 <div class="pog">
 	   <Route path="/"><Home /></Route>
 	   <Route path="/login" component="{Login}" /> 
 	   <Route path="/upload" component="{Upload}" /> 
@@ -42,7 +43,6 @@ import UploadMessage from "./UploadMessage.svelte";
    <style>
 	   nav{
 		   text-align: center;
-		   font-family: "Ubuntu";
-	   }
+		 }
 
    </style>

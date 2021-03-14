@@ -3,7 +3,7 @@ import HasNotVoted from "./HasNotVoted.svelte";
 import HasVoted from "./HasVoted.svelte";
 import { genericGet, genericPost, getMe } from "./queries";
 
-    let meId: number;
+    let meId: number | undefined;
     let isSuperuser: boolean;
     let surveyData: any;
 
@@ -33,18 +33,23 @@ import { genericGet, genericPost, getMe } from "./queries";
 </script>
 
 <div class="container">
-    {#if isSuperuser}
-        <p><a href="/umfrage-edit">Neue Umfrage erstellen</a></p>
-    {/if}
-    {#if surveyData !== undefined}
-        {#each surveyData.umfragen as survey}
-            {#if hasVotedSurvey(survey.id)}
-                <HasVoted surveyData={surveyData} survey={survey}/>
-            {:else}
-                <HasNotVoted surveyData={surveyData} survey={survey} />
+    {#if meId === undefined}
+        <p>Bitte melde dich zuerst an.</p>
+        {:else}
+
+            {#if isSuperuser}
+                <p><a href="/umfrage-edit">Neue Umfrage erstellen</a></p>
             {/if}
-            
-        {/each}
+            {#if surveyData !== undefined}
+                {#each surveyData.umfragen as survey}
+                    {#if hasVotedSurvey(survey.id)}
+                        <HasVoted surveyData={surveyData} survey={survey}/>
+                    {:else}
+                        <HasNotVoted surveyData={surveyData} survey={survey} />
+                    {/if}
+                    
+                {/each}
+            {/if}
     {/if}
 
     

@@ -42,7 +42,6 @@
 </main>
 <style>
 	main {
-		font-family: "Ubuntu";
 		padding: 1em;
 		max-width: 240px;
 

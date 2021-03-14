@@ -27,7 +27,3 @@
             </td>
         </tr>
 
-
-<style>
-
-</style>

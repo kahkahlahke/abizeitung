@@ -129,15 +129,10 @@ import { getAllStudents } from "./queries";
 </div>
 <style>
 h2{
-    font-family: "Ubuntu";
     text-align: center;
     color: #ff3e00;
     text-transform: uppercase;
     font-weight: 50;
 }
 
-
-.container{
-    font-family: "Ubuntu";
-}
 </style>
