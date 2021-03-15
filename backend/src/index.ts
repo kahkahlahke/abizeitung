@@ -21,10 +21,9 @@ import { Kommentar } from "./entities/Kommentar";
 import { postMakeSurvey } from "./resolvers/postMakeSurvey";
 import { getSurveyData } from "./resolvers/getSurveyData";
 import { postVote } from "./resolvers/postVote";
-import { Umfrage } from "./entities/Umfrage";
-import { Option } from "./entities/Option";
-import { Schueler } from "./entities/Schueler";
 import { postUpdateStudent } from "./resolvers/postUpdateStudent";
+import RateLimitStore from "rate-limit-redis";
+import rateLimit from "express-rate-limit";
 
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient();
@@ -48,6 +47,19 @@ const main = async () => {
     
     
     await orm.getMigrator().up();
+
+
+    const limiter = rateLimit({
+        store: new RateLimitStore({
+            client: redisClient
+        }),
+        windowMs: 15 * 60 *1000,
+        max: 100
+    });
+
+    app.use("/api/", limiter)
+
+
     app.use(cors({
         origin: "http://localhost:5000",
         credentials: true, 
