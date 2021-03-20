@@ -39,6 +39,6 @@ export const postUpload = (orm: MikroORM) => {
         req.session!.userId = student._id;
         console.log(req.session.userId)
         em.clear();
-        return res.redirect("/")
+        return res.status(200).send("yep")
     }   
 }

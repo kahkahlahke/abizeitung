@@ -24,6 +24,7 @@ import { postVote } from "./resolvers/postVote";
 import { postUpdateStudent } from "./resolvers/postUpdateStudent";
 import RateLimitStore from "rate-limit-redis";
 import rateLimit from "express-rate-limit";
+import { getOneStudent } from "./resolvers/getSingular";
 
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient();
@@ -40,10 +41,10 @@ const main = async () => {
     const orm = await MikroORM.init(mikroConfig); 
 
 
-    const BADCOMMENTS = await orm.em.find(Kommentar, {author: null});
+/*     const BADCOMMENTS = await orm.em.find(Kommentar, {author: null});
     await orm.em.removeAndFlush(BADCOMMENTS);
     const WORSECOMMENTS = await orm.em.find(Kommentar, {receiver: null});
-    await orm.em.removeAndFlush(WORSECOMMENTS);
+    await orm.em.removeAndFlush(WORSECOMMENTS); */
     
     
     await orm.getMigrator().up();
@@ -104,6 +105,7 @@ const main = async () => {
     app.get("/api/get-surveys", getSurveyData(orm));
     app.post("/api/upload", postUpload(orm));
     app.post("/api/write-comment", postComment(orm));
+    app.post("/api/get-singular", getOneStudent(orm));
     app.post("/api/login", postLogin(orm));
     app.post("/api/get-comments", getComments(orm));
     app.post("/api/make-superuser", postMakeSuperuser(orm));

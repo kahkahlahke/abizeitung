@@ -22,7 +22,7 @@ export class Schueler {
   @Property({unique: true})
   name: string;
 
-  @Property()
+  @Property({lazy: true})
   password: string;
 
   @Enum()

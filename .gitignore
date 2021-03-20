@@ -5,4 +5,5 @@
 /svelte-typescript-app/node_modules
 /svelte-typescript-app/yarn.lock
 /svelte-typescript-app/public/build
+/my-app/node_modules
 dump.rdb

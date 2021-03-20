@@ -11,7 +11,7 @@ export default {
     dbName: 'abizeitung',
     type: 'postgresql',
     user: "postgres",
-    password: "yourMomIsGay",
+    password: "h8.9;0=1",
     migrations: {
         path: path.join(__dirname, '/migrations'), // path to the folder with migrations
         pattern: /^[\w-]+\d+\.[tj]s$/,
