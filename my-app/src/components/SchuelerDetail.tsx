@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { meQuery } from "../fetchUtils";
 import { Kurs, Student } from "../utils";
 import Comment from "./Comments"
+import { Button, Grid, GridItem, Table, Text, Textarea } from "@chakra-ui/react";
 
 const SchuelerDetail: React.FC = () => {
     const {schuelerId} = useParams<{schuelerId: string}>();
@@ -59,9 +60,9 @@ const SchuelerDetail: React.FC = () => {
         return(
                 
             <div >
-                <h1>{student.name}</h1>
-                <p style={{width: "60%"}}><strong>Über mich: </strong>{student.description}</p>
-                <p><strong>Kurs: </strong>{Kurs[student.kurs]}</p>
+                <Text marginBottom="1em" fontSize="x-large"><strong>{student.name}</strong></Text>
+                <Text marginBottom="1em" style={{width: "60%"}}><strong>Über mich: </strong>{student.description}</Text>
+                <Text marginBottom="1em" ><strong>Kurs: </strong>{Kurs[student.kurs]}</Text>
                 <img src={"/images/" + student.image} alt={student.name} width="500"></img>
             </div>
         )
@@ -130,16 +131,28 @@ const SchuelerDetail: React.FC = () => {
     const commentForm = () => {
         return(
             <form onSubmit={handleSubmit}>
+                <Grid>
+                    <GridItem marginTop="1em" marginBottom="1em">
                 <p>Deine wohlüberlegte Meinung zu diesem Schueler: </p>
+                </GridItem>
                 {textareaError === "" ? (
-                <textarea value={textareaContent} onChange={onTextAreaChange}>
-                </textarea>
+                    <GridItem marginBottom="1em">
+                    <Textarea w="50%" value={textareaContent} onChange={onTextAreaChange}>
+                    </Textarea>
+                    </GridItem>
                 ): (
-                    <textarea value={textareaContent} onChange={onTextAreaChange}>
-                    </textarea>
+                    <div>
+                    <GridItem marginBottom="1em">
+                    <Textarea isInvalid w="50%" value={textareaContent} placeholder={textareaError} onChange={onTextAreaChange}>
+                    </Textarea>
+                    </GridItem>
+                    </div>
                 )}
 
-                <button type="submit">Submit</button>
+                <GridItem>
+                <Button color="black" type="submit">Submit</Button>
+                </GridItem>
+                </Grid>
             </form>
         )
     }
@@ -149,13 +162,13 @@ const SchuelerDetail: React.FC = () => {
             {loading ? "loading..." : renderStudent(thisStudentData)}
             {meData === null ? "" : commentForm()}
             {commentData === [] ? "loading..." : (
-                <table>
+                <Table marginTop="2em" variant="striped">
                     {commentData.map((item: any, i) => {
                         return (
                             <Comment content={item.content} user={getStudentById(item.author)}  />
                         )
                     })}
-                </table>)}
+                </Table>)}
         </div>
     )
 }

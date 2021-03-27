@@ -9,30 +9,34 @@ import './App.css';
 import AllStudents from './components/AllStudents';
 import SchuelerDetail from './components/SchuelerDetail';
 import Upload from './components/Upload';
+import { ChakraProvider } from "@chakra-ui/react";
+import Login from './components/Login';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter >
-      <div className="App" >
-        <NavBar />
-        <Switch>
-          <Route exact path="/">
-            <AllStudents />
-          </Route>
-          <Route exact path="/register">
-            <Upload />
-          </Route>
-          <Route exact path="/login">
-            <App />
-          </Route>
-          <Route exact path="/umfragen">
-            <App />
-          </Route>
-          <Route path="/schueler/:schuelerId" component={SchuelerDetail} />
+    <ChakraProvider>
+      <BrowserRouter >
+        <div className="App" >
+          <NavBar />
+          <Switch>
+            <Route exact path="/">
+              <AllStudents />
+            </Route>
+            <Route exact path="/register">
+              <Upload />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/umfragen">
+              <App />
+            </Route>
+            <Route path="/schueler/:schuelerId" component={SchuelerDetail} />
 
-        </Switch>
-      </div>
-    </BrowserRouter>
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

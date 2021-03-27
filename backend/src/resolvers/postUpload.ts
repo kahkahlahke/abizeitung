@@ -26,7 +26,9 @@ export const postUpload = (orm: MikroORM) => {
             //return res.send({name: imgFile.name, path: `/${imgFile.name}`})
         })
         // console.log(req.body)
+        console.log(req.body.password)
         const hashedPassword = await argon2.hash(req.body.password)
+        console.log(hashedPassword)
         const student = em.create(Schueler, {
             name: req.body.name, 
             description: req.body.desc, 

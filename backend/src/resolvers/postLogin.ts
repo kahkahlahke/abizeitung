@@ -6,10 +6,11 @@ import argon2 from "argon2";
 export const postLogin = (orm: MikroORM) => {
     return async (req: Request, res: Response, _: NextFunction) => {
         const em = orm.em.fork();
-        const student = await em.findOne(Schueler, {name: req.body.name})
+        const student = await em.findOne(Schueler, {name: req.body.name}, {populate: ["password"]})
         if(student === null){
             return res.send("that student does not exist")
         }
+        console.log(student.password)
         const verify = await argon2.verify(student.password, req.body.password) 
         
         if (!verify){

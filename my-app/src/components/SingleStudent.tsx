@@ -2,6 +2,9 @@ import React from "react";
 import { isTemplateExpression } from "typescript";
 import { Kurs, Student } from "../utils";
 import { Link as ReactRouterLink } from "react-router-dom";
+import { Img } from "@chakra-ui/image";
+import { Td, Tr } from "@chakra-ui/table";
+import { Text } from "@chakra-ui/layout";
 
 
 
@@ -23,20 +26,22 @@ class SingleStudent extends React.Component<Props> {
 
         
         return(
-            <tr key={this.props.key}>
+            <Tr key={this.props.key}>
 
-                        <td>
-                            <img src={"/images/" + this.props.item.image} width="250" alt={this.props.item.name}></img>
-                        </td>
-                        <td align="left">
-                            <h2>Name: <ReactRouterLink to={"/schueler/" + this.props.item._id.toString()}>
+                        <Td>
+                            <Img src={"/images/" + this.props.item.image} w="5000px" alt={this.props.item.name}></Img>
+                        </Td>
+                        <Td align="left">
+                            <Text marginBottom="1em" fontSize="x-large">
+                                <strong>Name: </strong>
+                                <ReactRouterLink to={"/schueler/" + this.props.item._id.toString()}>
                                     {this.props.item.name}
-                                </ReactRouterLink></h2>
-                            <p><strong>Über mich: </strong>{this.props.item.description}</p>
-                            <p><strong>Kurs: </strong>{Kurs[this.props.item.kurs]}</p>
-                        </td>
+                                </ReactRouterLink></Text>
+                            <Text marginBottom="1em"><strong>Über mich: </strong>{this.props.item.description}</Text>
+                            <Text marginBottom="1em"><strong>Kurs: </strong>{Kurs[this.props.item.kurs]}</Text>
+                        </Td>
 
-            </tr>
+            </Tr>
         )
     }
 }

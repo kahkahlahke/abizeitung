@@ -1,5 +1,6 @@
 import React from "react";
 import SingleStudent from "./SingleStudent";
+import { Table, Text } from "@chakra-ui/react";
 
 interface Props {}
 interface State {
@@ -35,10 +36,10 @@ class AllStudents extends React.Component<Props, State> {
 
     render(){
         return(
-            <div style={{ minHeight: "100vh", marginLeft: 500, marginTop: 60}} >
-                <p>Hello {this.state.meName}</p>
+            <div style={{ minHeight: "100vh", marginLeft: 400, marginTop: 60}} >
+                <Text marginBottom="1em" fontSize="large">Hello <strong>{this.state.meName}</strong></Text>
                 {/* <h1 style={{alignSelf: "center", alignContent: "center"}}>Abizeitung Sehr Gut</h1> */}
-                <table style={{width: "70%"}}>
+                <Table width="70%" variant="striped" colorScheme="red" borderColor="gray">
                 { this.state.loading ? "loading..." : this.state.allStudentData.map((item, i) => {
                     return (
 
@@ -46,7 +47,7 @@ class AllStudents extends React.Component<Props, State> {
 
                     )
                 } )}
-                </table>
+                </Table>
             </div>
         )
     }

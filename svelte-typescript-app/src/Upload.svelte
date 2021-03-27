@@ -15,9 +15,6 @@ import { getMe } from "./queries";
     let passwordConfirm: string;
     let errorMessage: string;
 
-    for(let i = 0; i < 8; i++){
-        kurse.push(Kurs[i])
-    }
 
     getMe().then(data => {
         if(data !== undefined){
