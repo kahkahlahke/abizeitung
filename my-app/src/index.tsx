@@ -11,6 +11,8 @@ import SchuelerDetail from './components/SchuelerDetail';
 import Upload from './components/Upload';
 import { ChakraProvider } from "@chakra-ui/react";
 import Login from './components/Login';
+import Umfragen from './components/Umfragen';
+import CreateSurvey from './components/CreateSurvey';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -29,7 +31,10 @@ ReactDOM.render(
               <Login />
             </Route>
             <Route exact path="/umfragen">
-              <App />
+              <Umfragen />
+            </Route>
+            <Route exact path="/edit-surveys">
+              <CreateSurvey />
             </Route>
             <Route path="/schueler/:schuelerId" component={SchuelerDetail} />
 
