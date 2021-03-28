@@ -1,5 +1,4 @@
 import React from "react";
-import { isTemplateExpression } from "typescript";
 import { Kurs, Student } from "../utils";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Img } from "@chakra-ui/image";
@@ -34,7 +33,7 @@ class SingleStudent extends React.Component<Props> {
                         <Td align="left">
                             <Text marginBottom="1em" fontSize="x-large">
                                 <strong>Name: </strong>
-                                <ReactRouterLink to={"/schueler/" + this.props.item._id.toString()}>
+                                <ReactRouterLink style={{color: "lightblue"}} to={"/schueler/" + this.props.item._id.toString()}>
                                     {this.props.item.name}
                                 </ReactRouterLink></Text>
                             <Text marginBottom="1em"><strong>Über mich: </strong>{this.props.item.description}</Text>
