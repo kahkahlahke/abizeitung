@@ -9,7 +9,7 @@ import './App.css';
 import AllStudents from './components/AllStudents';
 import SchuelerDetail from './components/SchuelerDetail';
 import Upload from './components/Upload';
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Grid } from "@chakra-ui/react";
 import Login from './components/Login';
 import Umfragen from './components/Umfragen';
 import CreateSurvey from './components/CreateSurvey';
@@ -19,31 +19,34 @@ ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
       <BrowserRouter >
-        <div className="App" >
-          <NavBar />
-          <Switch>
-            <Route exact path="/">
-              <AllStudents />
-            </Route>
-            <Route exact path="/register">
-              <Upload />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/umfragen">
-              <Umfragen />
-            </Route>
-            <Route exact path="/edit-surveys">
-              <CreateSurvey />
-            </Route>
-            <Route exact path="/edit-students">
-              <EditStudents />
-            </Route>
-            <Route path="/schueler/:schuelerId" component={SchuelerDetail} />
+        <Grid className="App" backgroundColor="#282c34">
 
-          </Switch>
-        </div>
+          <NavBar />
+          <Grid minHeight="88vh">
+            <Switch>
+              <Route exact path="/">
+                <AllStudents />
+              </Route>
+              <Route exact path="/register">
+                <Upload />
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/umfragen">
+                <Umfragen />
+              </Route>
+              <Route exact path="/edit-surveys">
+                <CreateSurvey />
+              </Route>
+              <Route exact path="/edit-students">
+                <EditStudents />
+              </Route>
+              <Route path="/schueler/:schuelerId" component={SchuelerDetail} />
+
+            </Switch>
+          </Grid>
+        </Grid>
       </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>,

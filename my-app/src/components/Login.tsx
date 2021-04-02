@@ -1,5 +1,5 @@
 import { Grid, GridItem } from "@chakra-ui/layout";
-import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Button, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import React, { ChangeEvent, FormEvent } from "react";
 
 interface Props {}
@@ -51,10 +51,10 @@ class Login extends React.Component<Props, State> {
 
     render(){
         return(
-            <div style={{ minHeight: "100vh", marginLeft: 400, marginTop: 60}} >
+            <Flex  justifyContent="center">
                 
-                <form onSubmit={this.handleSubmit}>
-                    <Grid w="65%">
+                <form style={{width: "45%"}} onSubmit={this.handleSubmit}>
+                    <Grid w="100%" marginTop="3em">
                         <GridItem margin="1em" colSpan={2}>
                             <FormControl>
                                 <FormLabel>Dein Name: </FormLabel>
@@ -72,7 +72,7 @@ class Login extends React.Component<Props, State> {
                         </GridItem>
                     </Grid>
                 </form>
-            </div>
+            </Flex>
         )
     }
 }

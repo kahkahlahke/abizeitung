@@ -50,8 +50,8 @@
   },
   "proxy": "http://localhost:3232",
   "devDependencies": {
-    "@types/chart.js": "^2.9.31",
     "@tailwindcss/postcss7-compat": "^2.0.4",
+    "@types/chart.js": "^2.9.31",
     "@types/react-router-dom": "^5.1.7",
     "autoprefixer": "^9",
     "postcss": "^7"

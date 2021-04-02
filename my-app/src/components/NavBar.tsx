@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Flex, Table, Td, Tr } from "@chakra-ui/react";
+import { Grid, Table, Td, Tr } from "@chakra-ui/react";
 
 const NavBar: React.FC = () => {
     return(
-        <Flex background="#21252b" >
-            <Table variant="unstyled" width="85%" marginLeft="56" paddingBottom="20" background="#21252b" paddingTop="20" textAlign="center">
+        <Grid placeItems="center" background="#21252b" >
+            <Table variant="unstyled" width="91%" marginLeft="40"  paddingBottom="20" background="#21252b" paddingTop="20" textAlign="center">
                 <Tr>
                     <Td>
                         <img src={"/static-images/plrund.png"} alt="our lord and saviour" width="100"></img>
@@ -44,7 +44,7 @@ const NavBar: React.FC = () => {
                     </Td>
                 </Tr>
             </Table>
-        </Flex>
+        </Grid>
     )
 }
 

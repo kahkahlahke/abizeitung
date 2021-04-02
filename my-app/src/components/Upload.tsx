@@ -1,4 +1,4 @@
-import { Input, Select, Table, Td, Textarea, Tr, FormControl, FormLabel, Grid, GridItem, Button } from "@chakra-ui/react";
+import { Input, Select, Table, Td, Textarea, Tr, FormControl, FormLabel, Grid, GridItem, Button, Flex } from "@chakra-ui/react";
 import { kStringMaxLength } from "node:buffer";
 import { stringify } from "node:querystring";
 import React, { ChangeEvent, FormEvent } from "react";
@@ -155,16 +155,16 @@ class Upload extends React.Component<Props, State> {
 
     render= () => {
         return(
-            <div style={{ minHeight: "100vh", marginLeft: 450, marginTop: 60}} >
-                <form style={{color: "inherit"}} onSubmit={this.handleSubmit}>
-                    <Grid w="70%" variant="unstyled">
-                            <GridItem margin="1em" colSpan={2}>
+            <Flex justifyContent="center">
+                <form style={{color: "inherit", width: "45%"}} onSubmit={this.handleSubmit}>
+                    <Grid templateRows="repeat(5, 1fr)" w="100%" variant="unstyled" marginTop="3em">
+                            <GridItem margin="1em" rowSpan={1} colSpan={2}>
                                 <FormControl>
                                     <FormLabel>Dein Name: </FormLabel>
                                 <Input color="primary" onChange={this.handleChange} name="name" value={this.state.meData.student?.name}></Input>
                                 </FormControl>
                             </GridItem>
-                            <GridItem margin="1em" colSpan={2}>
+                            <GridItem margin="1em" rowSpan={1}  colSpan={2}>
                                 <FormControl>
                                 <FormLabel>Dein Kurs: </FormLabel>
                                 <Select onChange={this.handleChange} value={this.state.meData.kursString} name="kurs" color="gray" >
@@ -172,7 +172,7 @@ class Upload extends React.Component<Props, State> {
                                 </Select>
                                 </FormControl>
                             </GridItem>
-                            <GridItem  margin="1em" colSpan={4}>
+                            <GridItem  margin="1em" rowSpan={1}  colSpan={4}>
                                 <FormControl>
                                     <FormLabel>
                                         Lade ein wunderschönes Bild von dir hoch:
@@ -181,15 +181,15 @@ class Upload extends React.Component<Props, State> {
                                 </FormControl>
                             </GridItem>
 
-                            <GridItem margin="1em" colSpan={4}>
+                            <GridItem margin="1em" rowSpan={2} colSpan={4}>
                                 <FormControl>
                                     <FormLabel>
                                         Über dich:
                                     </FormLabel>
-                                    <Textarea onChange={this.handleChange} name="description" value={this.state.meData.student?.description} ></Textarea>
+                                    <Textarea height="40" onChange={this.handleChange} name="description" value={this.state.meData.student?.description} ></Textarea>
                                 </FormControl>
                             </GridItem>
-                            <GridItem margin="1em" colSpan={2}>
+                            <GridItem margin="1em" rowSpan={1} colSpan={2}>
                                 <FormControl>
                                     <FormLabel>
                                         Dein Passwort: 
@@ -197,7 +197,7 @@ class Upload extends React.Component<Props, State> {
                                     <Input type="password" onChange={this.handleChange} name="password" value={this.state.meData.password} ></Input>
                                 </FormControl>
                             </GridItem>
-                            <GridItem margin="1em" colSpan={2}> 
+                            <GridItem margin="1em" rowSpan={1} colSpan={2}> 
                                 <FormControl>
                                     <FormLabel>
                                         Dein Passwort bestätigen: 
@@ -212,7 +212,7 @@ class Upload extends React.Component<Props, State> {
                     
                     
                 </form>
-            </div>
+            </Flex>
         )
     }
 }
