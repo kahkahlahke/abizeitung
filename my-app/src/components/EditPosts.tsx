@@ -1,11 +1,13 @@
 import React, { FormEvent } from "react";
 import { Button, Grid, GridItem, Img, Text } from "@chakra-ui/react";
 import { genericGet, genericPost, Student } from "../utils";
+import { meQuery } from "../fetchUtils";
 
 interface Props {}
 interface State {
     allStudentData:  Array<Student>,
-    meData: Student
+    meData: Student,
+    errorMessage: string
 }
 
 
@@ -15,7 +17,8 @@ class EditStudents extends React.Component<Props, State> {
 
         this.state = {
             allStudentData: [],
-            meData: null
+            meData: null,
+            errorMessage: ""
         }
     }
 
@@ -24,27 +27,39 @@ class EditStudents extends React.Component<Props, State> {
     }
 
     fetchAllData(){
-        genericGet("/api/get-students")
+        genericGet("/api/students/all")
             .then(data => {
+                if(data.error !== null){
+                    return this.setState({
+                        errorMessage: data.error.errorMessage
+                    })
+                }
+
                 this.setState({
-                    allStudentData: data
+                    allStudentData: data.data
                 });
             })
-        genericGet("/api/me-query")
+        meQuery()
             .then(data => {
+                if(data.error !== null){
+                    return this.setState({
+                        errorMessage: data.error.errorMessage
+                    })
+                }
+
                 this.setState({
-                    meData: data
+                    meData: data.data
                 })
             })
     }
 
     handleMakeSuperuser = async (item: Student) => {
-        await genericPost("/api/make-superuser", {id: item?._id})
+        await genericPost("/api/students/make-superuser", {id: item?._id})
         this.fetchAllData();
     }
 
     handleDelete = async (item: Student) => {
-        await genericPost("/api/delete-student", {id: item?._id})
+        await genericPost("/api/students/delete-user", {id: item?._id})
         this.fetchAllData();
     }
 

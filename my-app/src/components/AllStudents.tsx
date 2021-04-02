@@ -8,7 +8,8 @@ interface State {
     allStudentData: [],
     loading: boolean,
     meName: string,
-    isSuperuser: boolean
+    isSuperuser: boolean,
+    errorMessage: string | null;
 }
 
 class AllStudents extends React.Component<Props, State> {
@@ -19,21 +20,29 @@ class AllStudents extends React.Component<Props, State> {
             allStudentData: [],
             loading: true,
             meName: "",
-            isSuperuser: false
+            isSuperuser: false,
+            errorMessage: null
         }
     }
 
     componentDidMount(){
-        fetch("/api/get-students").then(resp => {
+        fetch("/api/students/all").then(resp => {
             console.log(resp);
             return resp.json();
         }).then(data => {
-            console.log(data)
-            this.setState({ allStudentData: data, loading: false });
+            if(data.error !== null){
+                this.setState({errorMessage: data.error.errorMessage, loading: false})
+                return; 
+            }
+            this.setState({ allStudentData: data.data, loading: false });
         })
-        fetch("/api/me-query").then(resp => resp.json())
+        fetch("/api/students/me-query").then(resp => resp.json())
         .then(data => {
-            this.setState({meName: data.name, isSuperuser: data.superuser})
+            if(data.error !== null){
+                this.setState({errorMessage: data.error.errorMessage})
+                return; 
+            }
+            this.setState({meName: data.data.name, isSuperuser: data.data.superuser})
         })
     }
 
@@ -52,6 +61,7 @@ class AllStudents extends React.Component<Props, State> {
                     )
                 } )}
                 </Table>
+                {this.state.errorMessage !== null ? (<Text color="red">! {this.state.errorMessage}</Text>): ""}
             </div>
         )
     }

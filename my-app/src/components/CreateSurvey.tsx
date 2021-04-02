@@ -49,7 +49,7 @@ class CreateSurvey extends React.Component<Props,State>{
 
     }
     handleSubmit = async () => {
-        await genericPost("/api/make-survey", {title: this.state.title, options: this.state.options})
+        await genericPost("/api/surveys/create", {title: this.state.title, options: this.state.options})
         window.location.href = "/umfragen"
     }
 

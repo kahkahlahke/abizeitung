@@ -35,10 +35,13 @@ class Upload extends React.Component<Props, State> {
 
     componentDidMount = () => {
         meQuery().then(data => {
+            if(data.error !== null){
+                return;
+            }
             this.setState({meData: {
                 ...this.state.meData,
-                student: data,
-                kursString: Kurs[data.kurs]
+                student: data.data,
+                kursString: Kurs[data.data.kurs]
             }});
         })
     }
@@ -122,13 +125,13 @@ class Upload extends React.Component<Props, State> {
         }
         if(this.state.meData.student._id === undefined){
             console.log("upload")
-            await fetch("/api/upload", options as RequestInit)
+            await fetch("/api/students/upload", options as RequestInit)
 
             window.location.href = "/"
             return
         }
         console.log("update")
-        await fetch("/api/updateStudent", options as RequestInit)
+        await fetch("/api/students/update", options as RequestInit)
 
         window.location.href = "/"
     }

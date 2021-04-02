@@ -45,7 +45,7 @@ class Login extends React.Component<Props, State> {
             body: form,
             credentials: "include"
         }
-        await fetch("/api/login", options as RequestInit)
+        await fetch("/api/students/login", options as RequestInit)
         window.location.href = "/"
     }
 

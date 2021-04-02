@@ -10,6 +10,7 @@ interface Props {}
 interface State{
     meData: Student;
     surveyData: any;
+    errorMessage: string;
 }
 
 class Umfragen extends React.Component<Props, State> {
@@ -18,7 +19,8 @@ class Umfragen extends React.Component<Props, State> {
 
         this.state = {
             meData: null,
-            surveyData: null
+            surveyData: null,
+            errorMessage: ""
         }
     }
 
@@ -28,15 +30,17 @@ class Umfragen extends React.Component<Props, State> {
     }
 
     fetchAllData = () => {
-        genericGet("/api/me-query")
+        genericGet("/api/students/me-query")
             .then(data => {
+                if(data.error !== null)
+                    return;
                 this.setState({
-                    meData: data
+                    meData: data.data
                 })
-                genericGet("/api/get-surveys")
+                genericGet("/api/surveys/get")
                 .then(data => {
                     this.setState({
-                        surveyData: data
+                        surveyData: data.data
                     })
                 });
             })
@@ -83,7 +87,7 @@ class Umfragen extends React.Component<Props, State> {
                         <GridItem colSpan={1}>
                             <Button color="black" onClick={async () => {
                                     // console.log(event.target.id)
-                                    await genericPost("/api/vote", {optionId: option.id})
+                                    await genericPost("/api/surveys/vote", {optionId: option.id})
                                     this.fetchAllData();
                                 }
                             }>{option.title}
@@ -112,7 +116,7 @@ class Umfragen extends React.Component<Props, State> {
             <div style={{ minHeight: "100vh", marginLeft: 0, marginTop: 60}} >
                 {this.linkToEdit()}
                 {this.state.surveyData === null ? 
-                    "Bitte melde dich an bevor du abstimmst" : 
+                    (<Text marginLeft={400}>Bitte melde dich an bevor du abstimmst</Text>) : 
                     this.state.surveyData.umfragen.map((item: any, i: number) => {
                         console.log(item)
                         return this.conditionalRender(item, i);

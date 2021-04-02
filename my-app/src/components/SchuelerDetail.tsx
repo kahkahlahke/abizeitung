@@ -14,16 +14,20 @@ const SchuelerDetail: React.FC = () => {
     const [allStudentData, setAllData] = useState<Array<any>>([]);
     const [textareaContent, setTextArea] = useState("");
     const [textareaError, setTextError] = useState("");
+    const [errorMessageField, setErrorMessage] = useState("");
 
     useEffect(() => {
         meQuery()
             .then(data => {
-                setMe(data);
+                if(data.error !== null){
+                    return setErrorMessage(data.error.errorMessage);
+                }
+                setMe(data.data);
             });
 
 
 
-        fetch("/api/get-singular", {
+        fetch("/api/students/singular", {
                   // Adding method type 
             method: "POST", 
                 
@@ -39,14 +43,20 @@ const SchuelerDetail: React.FC = () => {
         })
             .then(resp => resp.json())
             .then(data => {
-                setThisData(data);
+                if(data.error !== null){
+                    return setErrorMessage(data.error.errorMessage);
+                }
+                setThisData(data.data);
                 setLoading(false);
             })
         
-        fetch("/api/get-students")
+        fetch("/api/students/all")
             .then(resp => resp.json())
             .then(data => {
-                setAllData(data);
+                if(data.error !== null){
+                    return setErrorMessage(data.error.errorMessage);
+                }
+                setAllData(data.data);
                 getComments();
             })
 
@@ -71,7 +81,7 @@ const SchuelerDetail: React.FC = () => {
 
     const getComments = () => {
         // alert(id)
-        fetch("/api/get-comments",{ 
+        fetch("/api/comments/get",{ 
             method: "POST", 
 
             body: JSON.stringify({ 
@@ -84,7 +94,10 @@ const SchuelerDetail: React.FC = () => {
         })
             .then(resp => resp.json())
             .then(data => {
-                setCommentData(data);
+                if(data.error !== null){
+                    return setErrorMessage(data.error.errorMessage)
+                }
+                setCommentData(data.data);
             });
     }
 
@@ -123,7 +136,7 @@ const SchuelerDetail: React.FC = () => {
             body: formData,
             credentials: "include"
         } as RequestInit
-        await fetch("/api/write-comment", options)
+        await fetch("/api/comments/upload", options)
         setTextArea("");
         getComments();
     }
@@ -169,6 +182,7 @@ const SchuelerDetail: React.FC = () => {
                         )
                     })}
                 </Table>)}
+            {errorMessageField === "" ? "" : (<Text color="red">! {errorMessageField}</Text>)}
         </div>
     )
 }
