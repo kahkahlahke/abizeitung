@@ -1,0 +1,12 @@
+.message-item {
+
+}
+.my-message{
+    background-color: aquamarine;
+    margin-left: 3em;
+    
+}
+.received-message{
+    background-color: aqua;
+    margin-right: 3em;
+}

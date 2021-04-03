@@ -14,6 +14,8 @@ import rateLimit from "express-rate-limit";
 import StudentRouter from "./resolvers/StudentRouter";
 import CommentRouter from "./resolvers/CommentRouter";
 import SurveyRouter from "./resolvers/SurveyRouter";
+import { createServer } from "http";
+import { Server } from "socket.io";
 
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient();
@@ -51,7 +53,7 @@ const main = async () => {
 
 
     app.use(cors({
-        origin: "http://localhost:5000",
+        origin: "http://localhost:3000",
         credentials: true, 
     }));
     app.use(fileupload());
@@ -96,7 +98,49 @@ const main = async () => {
     app.get("*", (_, res) => {
         res.sendFile("index.html", {root: path.join(__dirname, "./public")})
     })
-    app.listen(3232, () => console.log("listnenjng @ 3434"));
+
+
+    const httpServer = createServer(app);
+    const io = new Server(httpServer, {
+        cors: {
+            origin: "http://localhost:3000",
+            methods: ["GET", "POST"]
+        }
+    });
+
+    const NEW_CHAT_MESSAGE_EVENT = "newChatMessage"
+
+    io.on("connection", socket => {
+        console.log("a user connected coggers")
+        const { receiverId, authorId } = socket.handshake.query;
+        let roomId = "";
+        if(receiverId === undefined || authorId === undefined){
+            console.log("uh oh")   
+        }
+        else if(receiverId instanceof Array || authorId instanceof Array){
+            console.log("stinky")
+        }
+        else if(parseInt(receiverId) > parseInt(authorId)){
+            roomId = authorId + receiverId;
+        }else{
+            roomId = receiverId + authorId;
+        }
+        if(roomId !== ""){
+            socket.join(roomId)
+        }
+
+
+        socket.on(NEW_CHAT_MESSAGE_EVENT, msg => {
+            console.log(msg)
+            io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, msg)
+        })
+
+        socket.on("disconnect", () => {
+            socket.leave(roomId);
+        })
+    })
+    httpServer.listen(3232)
+    // app.listen(3232, () => console.log("listnenjng @ 3434"));
 }
 main().catch(err => {
     console.error(err)

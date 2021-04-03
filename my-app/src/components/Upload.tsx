@@ -175,7 +175,7 @@ class Upload extends React.Component<Props, State> {
                             <GridItem  margin="1em" rowSpan={1}  colSpan={4}>
                                 <FormControl>
                                     <FormLabel>
-                                        Lade ein wunderschönes Bild von dir hoch:
+                                        Lade ein wunderschönes Bild v,n dir hoch:
                                     </FormLabel>
                                     <Input onChange={this.handleChange} name="image" type="file"></Input>
                                 </FormControl>

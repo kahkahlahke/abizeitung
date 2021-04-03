@@ -14,6 +14,7 @@ import Login from './components/Login';
 import Umfragen from './components/Umfragen';
 import CreateSurvey from './components/CreateSurvey';
 import EditStudents from './components/EditPosts';
+import Chat from './components/Chat';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -43,6 +44,8 @@ ReactDOM.render(
                 <EditStudents />
               </Route>
               <Route path="/schueler/:schuelerId" component={SchuelerDetail} />
+
+              <Route path="/chat/:schuelerId" component={Chat} />
 
             </Switch>
           </Grid>
