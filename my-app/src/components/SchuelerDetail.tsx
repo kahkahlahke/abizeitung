@@ -146,7 +146,7 @@ const SchuelerDetail: React.FC = () => {
             <form onSubmit={handleSubmit}>
                 <Grid>
                     <GridItem marginTop="1em" marginBottom="1em">
-                <p>Deine wohlüberlegte Meinung zu diesem Schueler: </p>
+                <p>Deine wohlüberlegte Meinung zu diesem/r Schueler/in: </p>
                 </GridItem>
                 {textareaError === "" ? (
                     <GridItem marginBottom="1em">

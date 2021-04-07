@@ -28,7 +28,7 @@ class SingleStudent extends React.Component<Props> {
             <Tr key={this.props.key}>
 
                         <Td>
-                            <Img src={"/images/" + this.props.item.image} w="5000px" alt={this.props.item.name}></Img>
+                            <Img src={"/images/" + this.props.item.image} w="400px" alt={this.props.item.name}></Img>
                         </Td>
                         <Td align="left">
                             <Text marginBottom="1em" fontSize="x-large">

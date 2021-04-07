@@ -285,6 +285,7 @@ const StudentRouter = (orm: MikroORM) => {
         })
         // console.log(req.body)
         const hashedPassword = await argon2.hash(req.body.password)
+        console.log(req.body)
         const student = em.create(Schueler, {
             name: req.body.name, 
             description: req.body.desc, 

@@ -25,7 +25,7 @@ class Upload extends React.Component<Props, State> {
         this.state = {
             meData: {
                 student: null,
-                kursString: "",
+                kursString: "EN1",
                 password: "",
                 passwordConfirm: "",
             },
